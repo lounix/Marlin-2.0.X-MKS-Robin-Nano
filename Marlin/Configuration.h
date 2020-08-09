@@ -70,30 +70,30 @@
 //===========================================================================
 
 // Probe Settings
-//#define BL_TOUCH                 // Enable BLTouch Settings
+#define BL_TOUCH                 // Enable BLTouch Settings
 #if ENABLED(BL_TOUCH)
-  //#define LOW_RES                  // 3x3 Grid 
+  #define LOW_RES                  // 3x3 Grid 
   //#define HI_RES                   // 5x5 Grid
   //#define MAX_RES                  // 7x7 Grid
-  //#define BL_TOUCH_HIGH_SPEED      // Only for BLTouch 3.0 and 3.1 Probe Pin does not pull in when moving in XY. Use at your own risk!
-  //#define Z_CLEARANCE_BL        5  // Z Clearance between probe points
+  #define BL_TOUCH_HIGH_SPEED      // Only for BLTouch 3.0 and 3.1 Probe Pin does not pull in when moving in XY. Use at your own risk!
+  #define Z_CLEARANCE_BL        2  // Z Clearance between probe points
   //#define MULTIPLE_PROBING_BL   2  // A total of 2 does fast/slow probes with a weighted average.  A total of 3 or more adds more slow probes, taking the average.
 #endif
   
 
 // Specify a Probe Offsetposition { X, Y, Z }
-#define OFFSET_X 0              // - Left   |   Right +
-#define OFFSET_Y 0              // - Front  |   Back +
-#define OFFSET_Z 0              // - Nozzle ist Higher as the Probe 0 Point |  + Really? you did somthing wrong.
+#define OFFSET_X  -2              // - Left   |   Right +
+#define OFFSET_Y -35              // - Front  |   Back +
+#define OFFSET_Z  -1              // - Nozzle ist Higher as the Probe 0 Point |  + Really? you did somthing wrong.
 
 
 // Motion Control Settings
 // New Motion Control              - Classic Jerk [OFF] | S-Curve Acceleration [ON]  | Junction Deviation Factor [ON]
-//#define MOTION_NEW
+#define MOTION_NEW
 //#define MOTION_NEW_JD           // If there is a jerky movement during small circular movements, activate the function
 
 // Classic Motion Control          - Classic Jerk [ON]  | S-Curve Acceleration [OFF] | Junction Deviation Factor [OFF]
-#define MOTION_CLASSIC
+//#define MOTION_CLASSIC
 
 
 // Linear Pressure Control
@@ -121,12 +121,12 @@
 //          TMC2208, TMC2208_STANDALONE, TMC2209, TMC2209_STANDALONE,
 //          TMC26X,  TMC26X_STANDALONE,  TMC2660, TMC2660_STANDALONE,
 //          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
-//#define CUSTOM_STEPPER_DRIVERS
+#define CUSTOM_STEPPER_DRIVERS
 #if ENABLED(CUSTOM_STEPPER_DRIVERS)
-  #define DRIVER_X TMC2209_STANDALONE
-  #define DRIVER_Y TMC2209_STANDALONE
-  #define DRIVER_Z TMC2209_STANDALONE
-  #define DRIVER_E0 TMC2209_STANDALONE
+  #define DRIVER_X TMC2208_STANDALONE
+  #define DRIVER_Y TMC2208_STANDALONE
+  #define DRIVER_Z A4988
+  #define DRIVER_E0 A4988
   //#define DRIVER_E1 TMC2209_STANDALONE
   //#define DRIVER_Z2 TMC2209_STANDALONE
 
@@ -139,41 +139,43 @@
 #endif
 
 // Custom Axis Steps Per MM
-// If you have calibrated the extruder before, you can enter the steps here, also be specified individually for the other axes.
-//#define STEPS_X         0  // Normally no change needed...
-//#define STEPS_Y         0  // Normally no change needed...
-//#define STEPS_Z         0  // Normally no change needed...
-//#define STEPS_E0        0
+// If you have calibrated the extruder before, you can enter the steps here, also be specified individually for the other axes
+#define STEPS_X         80.3  // Normally no change needed...
+#define STEPS_Y         80.3  // Normally no change needed...
+#define STEPS_Z       1600    // Normally no change needed...
+#define STEPS_E0       441.4
 
 // Custom Bed Size
 // If you have a different size of a print bed, enter it here
-//#define CUSTOM_BED_SIZE
+#define CUSTOM_BED_SIZE
 #if ENABLED(CUSTOM_BED_SIZE)
-  #define X_BED_SIZE_CUSTOM 200
-  #define Y_BED_SIZE_CUSTOM 200
-  #define Z_BED_SIZE_CUSTOM 200
+  #define X_BED_SIZE_CUSTOM 225
+  #define Y_BED_SIZE_CUSTOM 225
+  #define Z_BED_SIZE_CUSTOM 230
 #endif
 
 // Custom PID & TEMP SENSOR Settings  
 // Normally no change necessary, unless it does not maintain the set temperature + -1 °
-//#define CUSTOM_HOTEND_PID // HOTEND
+#define CUSTOM_HOTEND_PID // HOTEND
   #if ENABLED(CUSTOM_HOTEND_PID)
-    #define CUSTOM_Kp 1
-    #define CUSTOM_Ki 1
-    #define CUSTOM_Kd 1
+    //E3Dv6 50W w/sock C8 S230 //Lounix
+    #define CUSTOM_Kp 21.42
+    #define CUSTOM_Ki 2.57
+    #define CUSTOM_Kd 44.64
   #endif
 
-//#define CUSTOM_BED_PID    // HEATED BED
+#define CUSTOM_BED_PID    // HEATED BED
   #if ENABLED(CUSTOM_BED_PID)
-    #define CUSTOM_BED_Kp 1
-    #define CUSTOM_BED_Ki 1
-    #define CUSTOM_BED_Kd 1
+    // SapphirePro 24V C5 S60 //Lounix
+    #define CUSTOM_BED_Kp 18.57
+    #define CUSTOM_BED_Ki 3.36
+    #define CUSTOM_BED_Kd 68.49
   #endif
 
-//#define CUSTOM_TEMP_SENSOR
+#define CUSTOM_TEMP_SENSOR
   #if ENABLED(CUSTOM_TEMP_SENSOR)
     #define CUSTOM_TEMP_SENSOR_0 5      // 5 : 100K thermistor - ATC Semitec 104GT-2/104NT-4-R025H42G (Used in ParCan, J-Head, and E3D) (4.7k pullup)
-    #define CUSTOM_TEMP_SENSOR_1 5      // 5 : 100K thermistor - ATC Semitec 104GT-2/104NT-4-R025H42G (Used in ParCan, J-Head, and E3D) (4.7k pullup)
+    #define CUSTOM_TEMP_SENSOR_1 0      // 5 : 100K thermistor - ATC Semitec 104GT-2/104NT-4-R025H42G (Used in ParCan, J-Head, and E3D) (4.7k pullup)
     #define CUSTOM_TEMP_SENSOR_BED 1
 #endif
 
@@ -291,7 +293,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(le3tspeak, MKS Robin Nano)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Lounix, SapphirePro E3Dv6 BL)" // Who made the changes.
 #define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -315,7 +317,7 @@
 #if ANY(SAPPHIRE_PRO, SAPPHIRE_PLUS, BLUER)
   #define CUSTOM_STATUS_SCREEN_IMAGE
 #else
-  //#define CUSTOM_STATUS_SCREEN_IMAGE
+  #define CUSTOM_STATUS_SCREEN_IMAGE
 #endif
 
 // @section machine
@@ -372,7 +374,7 @@
     //Bluer
     #define CUSTOM_MACHINE_NAME "Bluer"
   #else
-    //#define CUSTOM_MACHINE_NAME "3D Printer"
+    #define CUSTOM_MACHINE_NAME "SapphirePro"
   #endif
 
 // Printer's unique ID, used by some programs to differentiate between machines.
@@ -690,13 +692,13 @@
 //#define TEMP_SENSOR_1_AS_REDUNDANT
 #define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
 
-#define TEMP_RESIDENCY_TIME     10  // (seconds) Time to wait for hotend to "settle" in M109
-#define TEMP_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer
-#define TEMP_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target
+#define TEMP_RESIDENCY_TIME      5  // (seconds) Time to wait for hotend to "settle" in M109
+#define TEMP_WINDOW              3  // (°C) Temperature proximity for the "temperature reached" timer
+#define TEMP_HYSTERESIS          2  // (°C) Temperature proximity considered "close enough" to the target
 
-#define TEMP_BED_RESIDENCY_TIME 10  // (seconds) Time to wait for bed to "settle" in M190
-#define TEMP_BED_WINDOW          1  // (°C) Temperature proximity for the "temperature reached" timer
-#define TEMP_BED_HYSTERESIS      3  // (°C) Temperature proximity considered "close enough" to the target
+#define TEMP_BED_RESIDENCY_TIME  5  // (seconds) Time to wait for bed to "settle" in M190
+#define TEMP_BED_WINDOW          3  // (°C) Temperature proximity for the "temperature reached" timer
+#define TEMP_BED_HYSTERESIS      2  // (°C) Temperature proximity considered "close enough" to the target
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
@@ -900,7 +902,7 @@
     //#define COREZY
   #else
     //No Preset & Bluer
-    //#define COREXY
+    #define COREXY
     //#define COREXZ
     //#define COREYZ
     //#define COREYX
@@ -929,10 +931,10 @@
   #else
     //No Preset & Bluer
     #define USE_XMIN_PLUG
-    #define USE_YMIN_PLUG
+    //#define USE_YMIN_PLUG
     #define USE_ZMIN_PLUG
     //#define USE_XMAX_PLUG
-    //#define USE_YMAX_PLUG
+    #define USE_YMAX_PLUG
     //#define USE_ZMAX_PLUG
   #endif
 
@@ -983,12 +985,12 @@
   #endif
 #else
     //No Preset
-    #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-    #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-    #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-    #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-    #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-    #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
+    #define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+    #define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+    #define X_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+    #define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+    #define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+    #define Z_MIN_PROBE_ENDSTOP_INVERTING true // Set to true to invert the logic of the probe.
 #endif
 
 #if ENABLED(OPTICAL_ENDSTOP_Z)
@@ -1190,7 +1192,7 @@
     #define DEFAULT_MAX_FEEDRATE          { 250, 250, 10, 50 }
   #else
     //No Preset
-    #define DEFAULT_MAX_FEEDRATE          { 300, 300, 10, 50 }
+    #define DEFAULT_MAX_FEEDRATE          { 300, 300, 30, 80 }
 #endif
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
@@ -1466,7 +1468,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10
+#define PROBING_MARGIN 40
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 10500
@@ -1475,7 +1477,7 @@
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 
 // Feedrate (mm/m) for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 4)
+#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 3)
 
 /**
  * Multiple Probing
@@ -1508,7 +1510,7 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_DEPLOY_PROBE    5 // Z Clearance for Deploy/Stow
 #ifdef Z_CLEARANCE_BL
   #define Z_CLEARANCE_BETWEEN_PROBES  Z_CLEARANCE_BL // Z Clearance between probe points
 #else
@@ -1517,7 +1519,7 @@
 #ifdef MULTIPLE_PROBING_BL
   #define Z_CLEARANCE_MULTI_PROBE     Z_CLEARANCE_BL // Z Clearance between multiple probes
 #else
-  #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
+  #define Z_CLEARANCE_MULTI_PROBE     2 // Z Clearance between multiple probes
 #endif
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
 
@@ -1709,7 +1711,7 @@
   #else
     //No Preset
     // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-    #define INVERT_X_DIR false
+    #define INVERT_X_DIR true
     #define INVERT_Y_DIR true
     #define INVERT_Z_DIR false
 
@@ -1732,10 +1734,10 @@
 
 #define UNKNOWN_Z_NO_RAISE      // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
-//#define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_HOMING_HEIGHT  5      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
-//#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
+#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
 
 #if ENABLED(SAPPHIRE_PRO)
     //Sapphire Pro
@@ -1847,22 +1849,22 @@
     // Direction of endstops when homing; 1=MAX, -1=MIN
     // :[-1,1]
     #define X_HOME_DIR -1
-    #define Y_HOME_DIR -1
+    #define Y_HOME_DIR  1
     #define Z_HOME_DIR -1
 
     // @section machine
 
     // The size of the print bed
-    #define X_BED_SIZE 200
-    #define Y_BED_SIZE 200
+    //#define X_BED_SIZE 200
+    //#define Y_BED_SIZE 200
 
     // Travel limits (mm) after homing, corresponding to endstop positions.
     #define X_MIN_POS 0
     #define Y_MIN_POS 0
     #define Z_MIN_POS 0
-    #define X_MAX_POS X_BED_SIZE
-    #define Y_MAX_POS Y_BED_SIZE
-    #define Z_MAX_POS 200
+    #define X_MAX_POS X_BED_SIZE_CUSTOM
+    #define Y_MAX_POS Y_BED_SIZE_CUSTOM
+    #define Z_MAX_POS Z_BED_SIZE_CUSTOM
   #endif
 
 /**
@@ -1916,7 +1918,7 @@
   // After a runout is detected, continue printing this length of filament
   // before executing the runout script. Useful for a sensor at the end of
   // a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
-  //#define FILAMENT_RUNOUT_DISTANCE_MM 25
+  #define FILAMENT_RUNOUT_DISTANCE_MM 2
 
   #ifdef FILAMENT_RUNOUT_DISTANCE_MM
     // Enable this option to use an encoder disc that toggles the runout pin
@@ -2259,15 +2261,30 @@
 // @section temperature
 
 // Preheat Constants
-#define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_LABEL      "PLA"
+#define PREHEAT_1_TEMP_HOTEND 190
 #define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
-#define PREHEAT_2_LABEL       "PETG"
-#define PREHEAT_2_TEMP_HOTEND 235
-#define PREHEAT_2_TEMP_BED    70
+#define PREHEAT_2_LABEL     "PETG"
+#define PREHEAT_2_TEMP_HOTEND 240
+#define PREHEAT_2_TEMP_BED     80
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
+
+#define PREHEAT_3_LABEL    "NYLON"
+#define PREHEAT_3_TEMP_HOTEND 250
+#define PREHEAT_3_TEMP_BED     90
+#define PREHEAT_3_FAN_SPEED     0 // Value from 0 to 255
+
+#define PREHEAT_4_LABEL      "ABS"
+#define PREHEAT_4_TEMP_HOTEND 240
+#define PREHEAT_4_TEMP_BED    100
+#define PREHEAT_4_FAN_SPEED     0 // Value from 0 to 255
+
+#define PREHEAT_5_LABEL   "NOZZLE"
+#define PREHEAT_5_TEMP_HOTEND 275
+#define PREHEAT_5_TEMP_BED      0
+#define PREHEAT_5_FAN_SPEED     0 // Value from 0 to 255
 
 /**
  * Nozzle Park
